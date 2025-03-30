@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block header %}
+<!-- <h2> {{name}}</h2> -->
+{% endblock %}
+
+{% block content%}
+<div>
+    <p>Hi {{name}}, enter in a dream and what you rate it.</p>
+    <div>
+        <h2>Add a thing</h2>
+        <form action="" method="post" novalidate>
+            {{form.hidden_tag()}}
+            <p>{{form.thing.label}}<br>
+                {{form.thing()}}</p>
+            <p>{{form.rating.label}}<br>
+                {{form.rating()}}</p>
+            <p>{{form.submit()}}</p>
+        </form>
+    </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class="flashes">
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <div>
+        <h2>{{name}} has had {{postcount}} other dreams.</h2>
+        <ul>
+            {% for thing in things %}
+            <li>
+                <p>
+                    A dream of {{thing.thing}} that was rated {{thing.rating}} star</p>
+                <a href="{{url_for('delete_item',id = thing.id, page = 'user')}}"> delete #{{thing.id}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <a href="{{url_for('homepage')}}">main</a>
+</div>
+{% endblock %}

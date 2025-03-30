@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+
+<body>
+
+    <H1> Dream App</H1>
+    <P> Who are you? </P>
+    {% for user in userList %}
+    <a href="{{url_for('form',id = user.id) }}">{{user.name}}</a>
+    {% endfor %}
+    <P> Maybe you want to sign up </P>
+    <div>
+        <form action="" method="post" novalidate>
+            {{form.hidden_tag()}}
+            <p>{{form.name.label}}
+                {{form.name()}}</p>
+            <p>{{form.submit()}}</p>
+        </form>
+    </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class="flashes">
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <div>
+        <h2>Some other dreams</h2>
+        <ul>
+            {% for thing in things %}
+            <li>
+                <p>{{users[thing.id]}}
+                    dreamt of {{thing.thing}} and rated it {{thing.rating}} star</p>
+                <a href="{{url_for('delete_item', id = thing.id, page = 'homepage')}}"> delete</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+
+</html>
