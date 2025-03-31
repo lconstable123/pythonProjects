@@ -3,9 +3,18 @@
 <html>
 
 <body>
-
     <H1> Dream App</H1>
+    {% if current_user.is_authenticated %}
+    <a href="{{url_for('logout')}}" style="color: blue;">log out</a>
+    {% endif %}
+    {% if not current_user.is_authenticated %}
+    <a href="{{url_for('admin')}}">ADMIN LOGIN</a>
     <P> Who are you? </P>
+    {% endif %}
+    <div>
+
+    </div>
+
     {% for user in userList %}
     <a href="{{url_for('form',id = user.id) }}">{{user.name}}</a>
     {% endfor %}
@@ -34,11 +43,14 @@
             <li>
                 <p>{{users[thing.id]}}
                     dreamt of {{thing.thing}} and rated it {{thing.rating}} star</p>
+                {% if current_user.is_authenticated %}
                 <a href="{{url_for('delete_item', id = thing.id, page = 'homepage')}}"> delete</a>
+                {% endif %}
             </li>
             {% endfor %}
         </ul>
     </div>
+    <a href="{{url_for('secret')}}">secret admin bit</a>
 </body>
 
 </html>

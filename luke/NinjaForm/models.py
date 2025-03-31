@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-
+from flask_login import UserMixin
 # Initialize db (don't need to initialize again if you import app and db)
 db = SQLAlchemy()
 
@@ -17,6 +17,11 @@ class User(db.Model):
     name = db.Column(db.String, index = True, unique = True)
     posts = db.Column(db.Integer, index = True, unique = False)
     things = db.relationship('Thing', backref='owner', lazy=True)
+
+# class Admin(UserMixin):
+#     id=1
+#     name = "luke"
+#     password = "admin"
 
 
     def __repr__(self):
